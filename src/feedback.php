@@ -3,9 +3,10 @@ namespace src;
 
 class Feedback
 {
-	public static function getReview(int $id)
+
+	public static function getFeedback(int $id)
 	{
-		$sql = "SELECT * FROM feedback WHERE id = :id";
+		$sql = "SELECT * FROM feedbacks WHERE id = :id";
 		$pdo = (new Database())->connect();
 		$stmt = $pdo->prepare($sql);
 		$stmt->execute(['id' => $id]);
@@ -13,10 +14,10 @@ class Feedback
 		return $result;
 	}
 
-	public static function getAllReviews(int $page)
+	public static function getAllFeedbacks(int $page)
 	{
 		$page*=20;
-		$sql = "SELECT * FROM feedback ORDER BY datetime DESC LIMIT :page, 20";
+		$sql = "SELECT * FROM feedbacks ORDER BY datetime DESC LIMIT :page, 20";
 		$pdo = (new Database())->connect();
 		$stmt = $pdo->prepare($sql);
 		$stmt->execute(['page' => $page]);
