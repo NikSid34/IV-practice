@@ -39,4 +39,35 @@ class Feedback
 		return $result;
 	}
 
+	/**
+	 * Метод для добавления отзыва
+	 *
+	 * @param string $name
+	 * @param string $text
+	 * @return void
+	 */
+	public static function createFeedback(string $name, string $text)
+	{
+		$date = date('Y-m-d H:i:s');
+		$sql = "INSERT INTO feedbacks (name, datetime, text)" .
+			"VALUES (:name, :date, :text)";
+		$pdo = (new Database())->connect();
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute(['name' => $name, 'datetime' => $date, 'text' => $text]);
+	}
+
+	/**
+	 * Метод для удаления отзыва по id
+	 *
+	 * @param int $id
+	 * @return void
+	 */
+	public static function deleteFeedback(int $id)
+	{
+		$sql = "DELETE FROM feedbacks WHERE id=:id";
+		$pdo = (new Database())->connect();
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute(['id' => $id]);
+	}
+
 }
