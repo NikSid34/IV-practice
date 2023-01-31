@@ -20,7 +20,7 @@ $app->get('/', function (Request $request, Response $response, $args)
 /**
  * Контроллер, возвращающий отзыв по id
  */
-$app->get('/api/feedbacks/{id}/', function (Request $request, Response $response, $args)
+$app->get('/api/feedbacks/{id}', function (Request $request, Response $response, $args)
 {
 	$id = $request->getAttribute('id');
 	$data = (new Feedback())->getFeedback($id);
@@ -33,21 +33,33 @@ $app->get('/api/feedbacks/{id}/', function (Request $request, Response $response
 /**
  * Контроллер, возвращающий все отзывы с постраничной навигацией
  */
-$app->get('/api/feedbacks[/{page}]', function (Request $request, Response $response, $args)
+$app->get('/api/feedbacks', function (Request $request, Response $response, $args)
 {
-	if($request->getAttribute('page')!=null)
-	{
-		$page = $request->getAttribute('page');
-	}
-	else
-	{
-		$page = 0;
-	}
+	$page = $_GET['page'] ?? 0;
 	$data = (new Feedback())->getAllFeedbacks($page);
 	$payload = json_encode($data);
 	$response->getBody()->write($payload);
 	return $response
 		->withHeader('Content-Type', 'application/json');
+});
+
+/**
+ * Контроллер для создания отзыва
+ */
+$app->post('/api/create', function (Request $request, Response $response, $args)
+{
+	$body = $request->getBody();
+	$data = json_decode($body, true);
+	(new Feedback())->createFeedback($data['name'], $data['text']);
+});
+
+/**
+ * Контроллер для удаления отзыва
+ */
+$app->post('/api/delete/{id}', function (Request $request, Response $response, $args)
+{
+	$id = $request->getAttribute('id');
+	(new Feedback())->deleteFeedback($id);
 });
 
 $app->run();
