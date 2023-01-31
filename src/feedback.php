@@ -1,9 +1,17 @@
 <?php
 namespace src;
 
+/**
+ * Класс хранилище отзывов, который содержит методы для взаимодействия с БД
+ */
 class Feedback
 {
-
+	/**
+	 * Метод, возвращающий отзыв с указанным id
+	 *
+	 * @param int $id
+	 * @return array
+	 */
 	public static function getFeedback(int $id)
 	{
 		$sql = "SELECT * FROM feedbacks WHERE id = :id";
@@ -14,6 +22,12 @@ class Feedback
 		return $result;
 	}
 
+	/**
+	 * Метод, возвращающий 20 отзывов, которые находятся на заданной станице
+	 *
+	 * @param int $page
+	 * @return array
+	 */
 	public static function getAllFeedbacks(int $page)
 	{
 		$page*=20;

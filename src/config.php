@@ -1,6 +1,9 @@
 <?php
 namespace src;
 
+/**
+ * Класс, содержащий путь к БД отзывов
+ */
 class Config
 {
 

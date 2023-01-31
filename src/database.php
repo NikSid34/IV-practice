@@ -1,10 +1,18 @@
 <?php
 namespace src;
 
+/**
+ * Класс БД
+ */
 class Database
 {
 	private $pdo;
 
+	/**
+	 * Метод, который подключает объект PDO к базе данных
+	 *
+	 * @return \PDO
+	 */
 	public function connect()
 	{
 		if ($this->pdo == null)
