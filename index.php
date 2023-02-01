@@ -52,7 +52,11 @@ $app->post('/api/create', function (Request $request, ResponseInterface $respons
 {
 	$body = $request->getBody();
 	$data = json_decode($body, true);
-	(new Feedback())->createFeedback($data['name'], $data['text']);
+	$data = (new Feedback())->createFeedback($data['name'], $data['text']);
+	$payload = json_encode($data);
+	$response->getBody()->write($payload);
+	return $response
+		->withHeader('Content-Type', 'application/json');
 });
 
 /**

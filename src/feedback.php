@@ -47,7 +47,7 @@ class Feedback
 	 * @param string $name
 	 * @param string $text
 	 *
-	 * @return void
+	 * @return $data
 	 */
 	public static function createFeedback(string $name, string $text)
 	{
@@ -57,6 +57,8 @@ class Feedback
 		$pdo = (new Database())->connect();
 		$stmt = $pdo->prepare($sql);
 		$stmt->execute(['name' => $name, 'datetime' => $date, 'text' => $text]);
+		$data = $pdo->lastInsertId();
+		return $data;
 	}
 
 	/**
