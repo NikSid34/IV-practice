@@ -10,6 +10,7 @@ class Feedback
 	 * Метод, возвращающий отзыв с указанным id
 	 *
 	 * @param int $id
+	 *
 	 * @return array
 	 */
 	public static function getFeedback(int $id)
@@ -26,6 +27,7 @@ class Feedback
 	 * Метод, возвращающий 20 отзывов, которые находятся на заданной станице
 	 *
 	 * @param int $page
+	 *
 	 * @return array
 	 */
 	public static function getAllFeedbacks(int $page)
@@ -44,6 +46,7 @@ class Feedback
 	 *
 	 * @param string $name
 	 * @param string $text
+	 *
 	 * @return void
 	 */
 	public static function createFeedback(string $name, string $text)
@@ -60,6 +63,7 @@ class Feedback
 	 * Метод для удаления отзыва по id
 	 *
 	 * @param int $id
+	 *
 	 * @return void
 	 */
 	public static function deleteFeedback(int $id)
