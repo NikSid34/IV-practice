@@ -9,7 +9,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/templates/view/header.php';
             </div>
         </div>
 
-        <!-- Модальное окно -->
+        <!-- Модальное окно создания отзывов -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <form action="/api/create" method="post">
             <div class="modal-dialog">

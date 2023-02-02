@@ -20,7 +20,11 @@ class Auth
 		{
 			session_start();
 			$_SESSION['login'] = $login;
-			header('Location: /feedbacks ');
+			setcookie('error', '', time()-3600);
+		}
+		else
+		{
+			setcookie('error', 'Неверный логин или пароль!', time()+3600);
 		}
 	}
 
@@ -31,8 +35,8 @@ class Auth
 	 */
 	public static function logOut()
 	{
+		session_start();
 		session_destroy();
-		header('Location: /feedbacks ');
 	}
 
 }
