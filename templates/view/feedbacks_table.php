@@ -48,16 +48,22 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/templates/view/header.php';
                 <tbody>
 				<?php foreach ($feedbacks as $item): ?>
                     <tr>
-                        <th><?php echo htmlspecialchars($item['name'])?></th>
-                        <th><?php echo htmlspecialchars($item['datetime'])?></th>
-                        <th><?php echo htmlspecialchars($item['text'])?></th>
-                        <th>
-                            <form action="/api/delete/<?php echo htmlspecialchars($item['id'])?>" method="post">
+                        <td><?php echo htmlspecialchars($item['name'])?></td>
+                        <td><?php echo htmlspecialchars($item['datetime'])?></td>
+                        <td><?php echo htmlspecialchars($item['text'])?></td>
+                        <td>
+                            <form class="d-inline-block" action="/api/delete/<?php echo htmlspecialchars($item['id'])?>"
+                                  method="post">
                                 <button type="submit" class="btn btn-danger"><i class="fa-solid
                     fa-trash"></i>
                                 </button>
                             </form>
-                        </th>
+
+                            <form class="d-inline-block" action="/api/feedbacks/<?php echo htmlspecialchars($item['id'])?>" method="get">
+                                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </form>
+                        </td>
                     </tr>
 				<?php endforeach; ?>
                 </tbody>

@@ -60,7 +60,7 @@ $app->post('/api/create', function (Request $request, ResponseInterface $respons
 	$parsedBody = $request->getParsedBody();
 	$data = (new Feedback())->createFeedback($parsedBody['name'], $parsedBody['text']);
 	return $response
-		->withHeader('Location', '/a')->withStatus(302);
+		->withHeader('Location', '/api/feedbacks')->withStatus(302);
 })->setName('createFeedback');
 
 
@@ -93,7 +93,7 @@ $app->post('/api/delete/{id}', function (Request $request, ResponseInterface $re
 {
 	$id = $request->getAttribute('id');
 	(new Feedback())->deleteFeedback($id);
-	return $response->withHeader('Location', '/a')->withStatus(302);
+	return $response->withHeader('Location', '/api/feedbacks')->withStatus(302);
 })->setName('deleteFeedback')->add($authAdmin);
 
 $app->run();

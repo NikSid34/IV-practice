@@ -52,6 +52,7 @@ class Feedback
 	 */
 	public static function createFeedback(string $name, string $text)
 	{
+		date_default_timezone_set('Europe/Moscow');
 		$date = date('Y-m-d H:i:s');
 		$sql = "INSERT INTO feedbacks (name, datetime, text)" .
 			"VALUES (?, ?, ?)";
