@@ -78,4 +78,19 @@ class Feedback
 		$stmt->execute(['id' => $id]);
 	}
 
+	/**
+	 * Метод для подсчета отзывов в БД
+	 *
+	 * @return int
+	 */
+	public static function count()
+	{
+		$sql = "SELECT * FROM feedbacks";
+		$pdo = (new Database())->connect();
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+		$result = count($result);
+		return $result;
+	}
 }

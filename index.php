@@ -29,7 +29,7 @@ $app->get('/', function (Request $request, ResponseInterface $response, $args)
 $app->get('/api/feedbacks/{id}', function (Request $request, ResponseInterface $response, $args)
 {
 	$id = $request->getAttribute('id');
-	$data = (new Feedback())->getFeedback($id);
+	$data = Feedback::getFeedback($id);
 	$payload = json_encode($data);
 	$response->getBody()->write($payload);
 	return $response
@@ -43,12 +43,14 @@ $app->get('/api/feedbacks/{id}', function (Request $request, ResponseInterface $
 $app->get('/api/feedbacks', function (Request $request, ResponseInterface $response, $args)
 {
 	$page = $_GET['page'] ?? 0;
-	$data = (new Feedback())->getAllFeedbacks($page);
+	$maxPage = (int)(Feedback::count()/20);
+	$data =  Feedback::getAllFeedbacks($page);
 	$payload = json_decode($data, true);
 	$renderer = new PhpRenderer(__DIR__ . '/templates/view');
 	return $renderer->render($response, "feedbacks_table.php", [
 		'feedbacks' => $payload,
-		'page' => $page
+		'page' => $page,
+		'maxPage' => $maxPage,
 	]);
 })->setName('feedbacks');
 
@@ -59,7 +61,7 @@ $app->get('/api/feedbacks', function (Request $request, ResponseInterface $respo
 $app->post('/api/create', function (Request $request, ResponseInterface $response, $args)
 {
 	$parsedBody = $request->getParsedBody();
-	$data = (new Feedback())->createFeedback($parsedBody['name'], $parsedBody['text']);
+	$data = Feedback::createFeedback($parsedBody['name'], $parsedBody['text']);
 	return $response
 		->withHeader('Location', '/api/feedbacks')->withStatus(302);
 })->setName('createFeedback');
@@ -94,7 +96,7 @@ $authAdmin = function (Request $request, RequestHandler $handler) use ($app)
 $app->post('/api/delete/{id}', function (Request $request, ResponseInterface $response, $args)
 {
 	$id = $request->getAttribute('id');
-	(new Feedback())->deleteFeedback($id);
+	Feedback::deleteFeedback($id);
 	return $response->withHeader('Location', '/api/feedbacks')->withStatus(302);
 })->setName('deleteFeedback')->add($authAdmin);
 
@@ -139,7 +141,6 @@ $authCheck = function (Request $request, RequestHandler $handler) use ($app)
 		return $response;
 	}
 };
-
 
 /**
  * Контроллер, возвращающий окно для входа в аккаунт

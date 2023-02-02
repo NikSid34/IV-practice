@@ -1,8 +1,8 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/templates/view/header.php';
 ?>
-
-<div class="container w-25">
+    <!-- Вход в аккаунт -->
+<div class="container w-25 main">
     <div class="row mt-3">
         <h5 class="modal-title" id="exampleModalLabel">Воти в аккаунт</h5>
         <form class="mt-3" action="/api/login" method="post">

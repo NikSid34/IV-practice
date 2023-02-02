@@ -36,6 +36,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/templates/view/header.php';
 
         <!-- Таблица -->
         <div class="row mt-3">
+            Страница <?php echo htmlspecialchars($page+1) ?>/<?php echo htmlspecialchars($maxPage+1) ?>
+        </div>
+        <div class="row mt-3">
             <table class="table table-hover table-striped">
                 <thead>
                 <tr class="table-dark">
@@ -69,9 +72,26 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/templates/view/header.php';
                 </tbody>
             </table>
         </div>
-        <div class="row mt-3">
 
-        </div>
+        <!-- Строка пагинации -->
+        <nav>
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="/api/feedbacks?page=<?php if($page != 0){echo htmlspecialchars($page-1);}
+                    else{echo 0;} ?>"
+                       aria-label="Предыдущая">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="/api/feedbacks?page=<?php if($page != $maxPage){echo htmlspecialchars
+                    ($page+1);} else{echo $maxPage;} ?>"
+                       aria-label="Следующая">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 
 
