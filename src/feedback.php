@@ -28,7 +28,7 @@ class Feedback
 	 *
 	 * @param int $page
 	 *
-	 * @return array
+	 * @return string
 	 */
 	public static function getAllFeedbacks(int $page)
 	{
@@ -38,6 +38,7 @@ class Feedback
 		$stmt = $pdo->prepare($sql);
 		$stmt->execute(['page' => $page]);
 		$result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+		$result = json_encode($result);
 		return $result;
 	}
 
@@ -53,10 +54,10 @@ class Feedback
 	{
 		$date = date('Y-m-d H:i:s');
 		$sql = "INSERT INTO feedbacks (name, datetime, text)" .
-			"VALUES (:name, :date, :text)";
+			"VALUES (?, ?, ?)";
 		$pdo = (new Database())->connect();
 		$stmt = $pdo->prepare($sql);
-		$stmt->execute(['name' => $name, 'datetime' => $date, 'text' => $text]);
+		$stmt->execute([$name,$date,$text]);
 		$data = $pdo->lastInsertId();
 		return $data;
 	}

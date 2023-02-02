@@ -4,11 +4,13 @@ use Slim\Psr7\Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use Slim\Factory\AppFactory;
+use Slim\Views\PhpRenderer;
 use src\Feedback;
 
 require __DIR__ . '/vendor/autoload.php';
 
 $app = AppFactory::create();
+
 
 /**
  * Контроллер, возвращающий Hello world!
@@ -17,7 +19,8 @@ $app->get('/', function (Request $request, ResponseInterface $response, $args)
 {
 	$response->getBody()->write("Hello world!");
 	return $response;
-});
+})->setName('hello');
+
 
 /**
  * Контроллер, возвращающий отзыв по id
@@ -30,7 +33,8 @@ $app->get('/api/feedbacks/{id}', function (Request $request, ResponseInterface $
 	$response->getBody()->write($payload);
 	return $response
 		->withHeader('Content-Type', 'application/json');
-});
+})->setName('feedback');
+
 
 /**
  * Контроллер, возвращающий все отзывы с постраничной навигацией
@@ -39,25 +43,26 @@ $app->get('/api/feedbacks', function (Request $request, ResponseInterface $respo
 {
 	$page = $_GET['page'] ?? 0;
 	$data = (new Feedback())->getAllFeedbacks($page);
-	$payload = json_encode($data);
-	$response->getBody()->write($payload);
-	return $response
-		->withHeader('Content-Type', 'application/json');
-});
+	$payload = json_decode($data, true);
+	$renderer = new PhpRenderer(__DIR__ . '/templates/view');
+	return $renderer->render($response, "feedbacks_table.php", [
+		'feedbacks' => $payload,
+		'page' => $page
+	]);
+})->setName('feedbacks');
+
 
 /**
  * Контроллер для создания отзыва
  */
 $app->post('/api/create', function (Request $request, ResponseInterface $response, $args)
 {
-	$body = $request->getBody();
-	$data = json_decode($body, true);
-	$data = (new Feedback())->createFeedback($data['name'], $data['text']);
-	$payload = json_encode($data);
-	$response->getBody()->write($payload);
+	$parsedBody = $request->getParsedBody();
+	$data = (new Feedback())->createFeedback($parsedBody['name'], $parsedBody['text']);
 	return $response
-		->withHeader('Content-Type', 'application/json');
-});
+		->withHeader('Location', '/a')->withStatus(302);
+})->setName('createFeedback');
+
 
 /**
  * Middleware функция для проверки на логин админа
@@ -88,6 +93,7 @@ $app->post('/api/delete/{id}', function (Request $request, ResponseInterface $re
 {
 	$id = $request->getAttribute('id');
 	(new Feedback())->deleteFeedback($id);
-})->add($authAdmin);
+	return $response->withHeader('Location', '/a')->withStatus(302);
+})->setName('deleteFeedback')->add($authAdmin);
 
 $app->run();
