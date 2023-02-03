@@ -12,11 +12,19 @@ require __DIR__ . '/vendor/autoload.php';
 
 $app = AppFactory::create();
 
+/**
+ * Контроллер, для перенаправления к таблице отзывов
+ */
+$app->get('/', function (Request $request, ResponseInterface $response, $args)
+{
+	return $response
+		->withHeader('Location', '/api/feedbacks')->withStatus(302);
+});
 
 /**
  * Контроллер, возвращающий Hello world!
  */
-$app->get('/', function (Request $request, ResponseInterface $response, $args)
+$app->get('/api/hello', function (Request $request, ResponseInterface $response, $args)
 {
 	$response->getBody()->write("Hello world!");
 	return $response;
@@ -30,10 +38,11 @@ $app->get('/api/feedbacks/{id}', function (Request $request, ResponseInterface $
 {
 	$id = $request->getAttribute('id');
 	$data = Feedback::getFeedback($id);
-	$payload = json_encode($data);
-	$response->getBody()->write($payload);
-	return $response
-		->withHeader('Content-Type', 'application/json');
+	$payload = json_decode($data, true);
+	$renderer = new PhpRenderer(__DIR__ . '/templates/view');
+	return $renderer->render($response, "feedback.php", [
+		'feedback' => $payload,
+	]);
 })->setName('feedback');
 
 

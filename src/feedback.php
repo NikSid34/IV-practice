@@ -11,7 +11,7 @@ class Feedback
 	 *
 	 * @param int $id
 	 *
-	 * @return array
+	 * @return string
 	 */
 	public static function getFeedback(int $id)
 	{
@@ -20,6 +20,7 @@ class Feedback
 		$stmt = $pdo->prepare($sql);
 		$stmt->execute(['id' => $id]);
 		$result = $stmt->fetch(\PDO::FETCH_ASSOC);
+		$result = json_encode($result);
 		return $result;
 	}
 
@@ -48,7 +49,7 @@ class Feedback
 	 * @param string $name
 	 * @param string $text
 	 *
-	 * @return $data
+	 * @return string
 	 */
 	public static function createFeedback(string $name, string $text)
 	{

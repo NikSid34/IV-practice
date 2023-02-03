@@ -42,18 +42,19 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/templates/view/header.php';
             <table class="table table-hover table-striped">
                 <thead>
                 <tr class="table-dark">
-                    <th>Name</th>
-                    <th>Date</th>
-                    <th>Text</th>
-                    <th>Actions</th>
+                    <th>Имя</th>
+                    <th>Дата</th>
+                    <th>Отзыв</th>
+                    <th>Действия</th>
                 </tr>
                 </thead>
                 <tbody>
 				<?php foreach ($feedbacks as $item): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($item['name'])?></td>
+                        <td><?php echo htmlspecialchars(substr($item['name'],0,50))?></td>
                         <td><?php echo htmlspecialchars($item['datetime'])?></td>
-                        <td><?php echo htmlspecialchars($item['text'])?></td>
+                        <td><?php echo htmlspecialchars(substr($item['text'],0,50)); if (strlen($item['text'])>50)
+                            echo ' ...' ?></td>
                         <td>
                             <form class="d-inline-block" action="/api/delete/<?php echo htmlspecialchars($item['id'])?>"
                                   method="post">
@@ -77,15 +78,13 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/templates/view/header.php';
         <nav>
             <ul class="pagination">
                 <li class="page-item">
-                    <a class="page-link" href="/api/feedbacks?page=<?php if($page != 0){echo htmlspecialchars($page-1);}
-                    else{echo 0;} ?>"
+                    <a class="page-link" href="/api/feedbacks?page=<?php if($page != 0){echo htmlspecialchars($page-1);} else{echo 0;} ?>"
                        aria-label="Предыдущая">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" href="/api/feedbacks?page=<?php if($page != $maxPage){echo htmlspecialchars
-                    ($page+1);} else{echo $maxPage;} ?>"
+                    <a class="page-link" href="/api/feedbacks?page=<?php if($page != $maxPage){echo htmlspecialchars($page+1);} else{echo $maxPage;} ?>"
                        aria-label="Следующая">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
