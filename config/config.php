@@ -1,8 +1,8 @@
 <?php
-namespace src;
+namespace Config;
 
 /**
- * Конфигурационный класс
+ * Конфигурационный класс, этот файл необходимо добавить в gitignore
  */
 class Config
 {

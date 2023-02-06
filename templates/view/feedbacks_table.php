@@ -12,25 +12,25 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/templates/view/header.php';
         <!-- Модальное окно создания отзывов -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <form action="/api/create" method="post">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Добавить отзыв</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-                    </div>
-                    <div class="modal-body">
-                        <label for="inputName" class="form-label">Имя</label>
-                        <input type="text" class="form-control" id="inputName" name="name" required>
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Добавить отзыв</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label for="inputName" class="form-label">Имя</label>
+                            <input type="text" class="form-control" id="inputName" name="name" required>
 
-                        <label for="inputText" class="form-label">Отзыв</label>
-                        <textarea rows="5" cols="60" id="inputText" name="text" required></textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                            <label for="inputText" class="form-label">Отзыв</label>
+                            <textarea rows="5" cols="60" id="inputText" name="text" required></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                            <button type="submit" class="btn btn-primary">Сохранить</button>
+                        </div>
                     </div>
                 </div>
-            </div>
             </form>
         </div>
 
@@ -54,7 +54,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/templates/view/header.php';
                         <td><?php echo htmlspecialchars(substr($item['name'],0,50))?></td>
                         <td><?php echo htmlspecialchars($item['datetime'])?></td>
                         <td><?php echo htmlspecialchars(substr($item['text'],0,50)); if (strlen($item['text'])>50)
-                            echo ' ...' ?></td>
+								echo ' ...' ?></td>
                         <td>
                             <form class="d-inline-block" action="/api/delete/<?php echo htmlspecialchars($item['id'])?>"
                                   method="post">
@@ -63,7 +63,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/templates/view/header.php';
                                 </button>
                             </form>
 
-                            <form class="d-inline-block" action="/api/feedbacks/<?php echo htmlspecialchars($item['id'])?>" method="get">
+                            <form class="d-inline-block" action="/view/feedbacks/<?php echo htmlspecialchars($item['id'])?>" method="get">
                                 <button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i>
                                 </button>
                             </form>
@@ -78,13 +78,13 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/templates/view/header.php';
         <nav>
             <ul class="pagination">
                 <li class="page-item">
-                    <a class="page-link" href="/api/feedbacks?page=<?php if($page != 0){echo htmlspecialchars($page-1);} else{echo 0;} ?>"
+                    <a class="page-link" href="/view/feedbacks?page=<?php if($page != 0){echo htmlspecialchars($page);} else{echo 1;} ?>"
                        aria-label="Предыдущая">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" href="/api/feedbacks?page=<?php if($page != $maxPage){echo htmlspecialchars($page+1);} else{echo $maxPage;} ?>"
+                    <a class="page-link" href="/view/feedbacks?page=<?php if($page != $maxPage){echo htmlspecialchars($page+2);} else{echo $maxPage+1;} ?>"
                        aria-label="Следующая">
                         <span aria-hidden="true">&raquo;</span>
                     </a>

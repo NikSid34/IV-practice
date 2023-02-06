@@ -1,5 +1,5 @@
 <footer class="topLine">
-    <div class="row top_margin">
+    <div class="row">
         <div class="col-md-auto whiteText">© Сидоров Никита</div>
     </div>
 </footer>

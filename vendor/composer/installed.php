@@ -1,24 +1,15 @@
 <?php return array(
     'root' => array(
-        'name' => '__root__',
+        'name' => 'niksid34/iv-practice',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'ca6f887233342f4c72af0b5aac74a474fc6cb617',
-        'type' => 'library',
+        'reference' => '46e4aed383e1a1c654071f3249390bee38c2b1b6',
+        'type' => 'application',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
-        '__root__' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
-            'reference' => 'ca6f887233342f4c72af0b5aac74a474fc6cb617',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../../',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
         'fig/http-message-util' => array(
             'pretty_version' => '1.1.5',
             'version' => '1.1.5.0',
@@ -34,6 +25,15 @@
             'reference' => '181d480e08d9476e61381e04a71b34dc0432e812',
             'type' => 'library',
             'install_path' => __DIR__ . '/../nikic/fast-route',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'niksid34/iv-practice' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '46e4aed383e1a1c654071f3249390bee38c2b1b6',
+            'type' => 'application',
+            'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -122,14 +122,12 @@
             'dev_requirement' => false,
         ),
         'slim/psr7' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => '7e7e63e3b624ed07bde14fbd9f91ab8904402375',
+            'pretty_version' => '1.6',
+            'version' => '1.6.0.0',
+            'reference' => '3471c22c1a0d26c51c78f6aeb06489d38cf46a4d',
             'type' => 'library',
             'install_path' => __DIR__ . '/../slim/psr7',
-            'aliases' => array(
-                0 => '9999999-dev',
-            ),
+            'aliases' => array(),
             'dev_requirement' => false,
         ),
         'slim/slim' => array(

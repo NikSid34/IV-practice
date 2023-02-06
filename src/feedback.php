@@ -1,5 +1,5 @@
 <?php
-namespace src;
+namespace App;
 
 /**
  * Класс хранилище отзывов, который содержит методы для взаимодействия с БД
@@ -7,21 +7,29 @@ namespace src;
 class Feedback
 {
 	/**
+	 * Конструктор
+	 *
+	 * @param Database $db
+	 */
+	public function __construct(
+		private Database $db
+	)
+	{}
+
+	/**
 	 * Метод, возвращающий отзыв с указанным id
 	 *
 	 * @param int $id
 	 *
 	 * @return string
 	 */
-	public static function getFeedback(int $id)
+	public function getFeedback(int $id):string
 	{
 		$sql = "SELECT * FROM feedbacks WHERE id = :id";
-		$pdo = (new Database())->connect();
-		$stmt = $pdo->prepare($sql);
-		$stmt->execute(['id' => $id]);
-		$result = $stmt->fetch(\PDO::FETCH_ASSOC);
-		$result = json_encode($result);
-		return $result;
+		$result = $this->db->query($sql,
+			['id' => $id]
+		);
+		return json_encode($result);
 	}
 
 	/**
@@ -31,16 +39,14 @@ class Feedback
 	 *
 	 * @return string
 	 */
-	public static function getAllFeedbacks(int $page)
+	public function getPageFeedbacks(int $page, int $count):string
 	{
-		$page*=20;
-		$sql = "SELECT * FROM feedbacks ORDER BY datetime DESC LIMIT :page, 20";
-		$pdo = (new Database())->connect();
-		$stmt = $pdo->prepare($sql);
-		$stmt->execute(['page' => $page]);
-		$result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-		$result = json_encode($result);
-		return $result;
+		$page *= 20;
+		$sql = "SELECT * FROM feedbacks ORDER BY datetime DESC LIMIT ?, ?";
+		$result = $this->db->query($sql,
+			[$page, $count]
+		);
+		return json_encode($result);
 	}
 
 	/**
@@ -51,17 +57,20 @@ class Feedback
 	 *
 	 * @return string
 	 */
-	public static function createFeedback(string $name, string $text)
+	public function createFeedback(string $name, string $text):string
 	{
 		date_default_timezone_set('Europe/Moscow');
 		$date = date('Y-m-d H:i:s');
 		$sql = "INSERT INTO feedbacks (name, datetime, text)" .
 			"VALUES (?, ?, ?)";
-		$pdo = (new Database())->connect();
-		$stmt = $pdo->prepare($sql);
-		$stmt->execute([$name,$date,$text]);
-		$data = $pdo->lastInsertId();
-		return $data;
+		$id = $this->db->createQuery($sql,
+			[$name,$date,$text]
+		);
+		$lastId = "SELECT * FROM feedbacks WHERE id = :id";
+		$result = $this->db->query($lastId,
+			['id' => $id]
+		);
+		return json_encode($result);
 	}
 
 	/**
@@ -71,12 +80,12 @@ class Feedback
 	 *
 	 * @return void
 	 */
-	public static function deleteFeedback(int $id)
+	public function deleteFeedback(int $id):void
 	{
 		$sql = "DELETE FROM feedbacks WHERE id=:id";
-		$pdo = (new Database())->connect();
-		$stmt = $pdo->prepare($sql);
-		$stmt->execute(['id' => $id]);
+		$this->db->query($sql,
+			['id' => $id]
+		);
 	}
 
 	/**
@@ -84,14 +93,12 @@ class Feedback
 	 *
 	 * @return int
 	 */
-	public static function count()
+	public function count():int
 	{
 		$sql = "SELECT * FROM feedbacks";
-		$pdo = (new Database())->connect();
-		$stmt = $pdo->prepare($sql);
-		$stmt->execute();
-		$result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-		$result = count($result);
-		return $result;
+		$result = $this->db->query($sql,
+			[]
+		);
+		return count($result);
 	}
 }
