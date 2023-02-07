@@ -2,7 +2,7 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . '/templates/view/header.php';
 ?>
 
-<div class="container w-50 main mt-3">
+<main class="container w-50 main mt-3">
 	<div class="row bg-dark">
 		<div class="row justify-content-between mt-3 text-center">
 			<h4 class="modal-title whiteText">Отзыв</h4>
@@ -18,7 +18,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/templates/view/header.php';
             <p style="word-break: break-all"><?php echo htmlspecialchars($feedback['text']) ?></p>
 		</div>
 	</div>
-</div>
+</main>
 
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/templates/view/footer.php';

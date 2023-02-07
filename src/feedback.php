@@ -1,5 +1,6 @@
 <?php
 namespace App;
+use Exception;
 
 /**
  * Класс хранилище отзывов, который содержит методы для взаимодействия с БД
@@ -22,6 +23,7 @@ class Feedback
 	 * @param int $id
 	 *
 	 * @return string
+	 * @throws Exception
 	 */
 	public function getFeedback(int $id):string
 	{
@@ -29,6 +31,10 @@ class Feedback
 		$result = $this->db->query($sql,
 			['id' => $id]
 		);
+		if ($result==[])
+		{
+			throw new Exception("Feedback not found.");
+		}
 		return json_encode($result);
 	}
 
@@ -38,6 +44,7 @@ class Feedback
 	 * @param int $page
 	 *
 	 * @return string
+	 * @throws Exception
 	 */
 	public function getPageFeedbacks(int $page, int $count):string
 	{
@@ -46,6 +53,10 @@ class Feedback
 		$result = $this->db->query($sql,
 			[$page, $count]
 		);
+		if ($result==[])
+		{
+			throw new Exception("Page not found.");
+		}
 		return json_encode($result);
 	}
 

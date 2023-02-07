@@ -11,10 +11,10 @@
 </head>
 
 <body>
-<div class="container-fluid topLine">
+<header class="container-fluid topLine">
     <div class="row justify-content-between">
         <div class="col-md-auto whiteText"><h5>Производственная практика</h5></div>
         <div class="col"></div>
-        <div class="col-md-auto"><a class="whiteText" href="/view/feedbacks"><span>Все отзывы</span></a></div>
+        <nav class="col-md-auto"><a class="whiteText" href="/view/feedbacks"><span>Все отзывы</span></a></nav>
     </div>
-</div>
+</header>

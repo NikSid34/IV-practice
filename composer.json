@@ -6,6 +6,7 @@
     "slim/slim": "4.11.0",
     "slim/psr7": "1.6",
     "slim/php-view": "3.2.0",
+    "tuupola/slim-basic-auth": "3.3.1",
     "ext-json": "*",
     "ext-pdo": "*"
   },

@@ -2,7 +2,7 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . '/templates/view/header.php';
 ?>
 
-    <div class="container">
+    <main class="container">
         <div class="row mt-3">
             <div class="col-12">
                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-plus"></i></button>
@@ -10,7 +10,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/templates/view/header.php';
         </div>
 
         <!-- Модальное окно создания отзывов -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <section class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <form action="/api/create" method="post">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -32,13 +32,13 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/templates/view/header.php';
                     </div>
                 </div>
             </form>
-        </div>
+        </section>
 
         <!-- Таблица -->
         <div class="row mt-3">
             Страница <?php echo htmlspecialchars($page+1) ?>/<?php echo htmlspecialchars($maxPage+1) ?>
         </div>
-        <div class="row mt-3">
+        <section class="row mt-3">
             <table class="table table-hover table-striped">
                 <thead>
                 <tr class="table-dark">
@@ -72,7 +72,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/templates/view/header.php';
 				<?php endforeach; ?>
                 </tbody>
             </table>
-        </div>
+        </section>
 
         <!-- Строка пагинации -->
         <nav>
@@ -91,7 +91,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/templates/view/header.php';
                 </li>
             </ul>
         </nav>
-    </div>
+    </main>
 
 
 
