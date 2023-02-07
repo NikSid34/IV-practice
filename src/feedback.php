@@ -31,7 +31,7 @@ class Feedback
 		$result = $this->db->query($sql,
 			['id' => $id]
 		);
-		if ($result==[])
+		if ($result == [])
 		{
 			throw new Exception("Feedback not found.");
 		}
@@ -53,7 +53,7 @@ class Feedback
 		$result = $this->db->query($sql,
 			[$page, $count]
 		);
-		if ($result==[])
+		if ($result == [])
 		{
 			throw new Exception("Page not found.");
 		}
@@ -75,7 +75,7 @@ class Feedback
 		$sql = "INSERT INTO feedbacks (name, datetime, text)" .
 			"VALUES (?, ?, ?)";
 		$id = $this->db->createQuery($sql,
-			[$name,$date,$text]
+			[$name, $date, $text]
 		);
 		$lastId = "SELECT * FROM feedbacks WHERE id = :id";
 		$result = $this->db->query($lastId,

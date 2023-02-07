@@ -50,7 +50,7 @@ class ApiController
 		try
 		{
 			$id = $request->getAttribute('id');
-			if (!is_numeric($id) || $id<=0)
+			if (!is_numeric($id) || $id <= 0)
 			{
 				throw new Exception("Param 'id' is not correct");
 			}
@@ -84,8 +84,8 @@ class ApiController
 		{
 			$params = $request->getQueryParams();
 			$page = $params['page'] ?? 1;
-			$maxPage = (int)($this->feedback->count()/20);
-			if (!is_numeric($page) || $page<=0 || $page>$maxPage)
+			$maxPage = (int)($this->feedback->count() / 20);
+			if (!is_numeric($page) || $page <= 0 || $page > $maxPage)
 			{
 				throw new Exception("Param 'page' is not correct");
 			}
@@ -118,7 +118,7 @@ class ApiController
 		{
 			$parsedBody = $request->getParsedBody();
 			$data = $this->feedback->createFeedback($parsedBody['name'], $parsedBody['text']);
-			if ($parsedBody['name']=="" || $parsedBody['text']=="")
+			if ($parsedBody['name'] == "" || $parsedBody['text'] == "")
 			{
 				throw new Exception("Not all fields are filled.");
 			}
@@ -148,7 +148,7 @@ class ApiController
 		try
 		{
 			$id = $request->getAttribute('id');
-			if (!is_numeric($id) || $id<=0)
+			if (!is_numeric($id) || $id <= 0)
 			{
 				throw new Exception("Param 'id' is not correct");
 			}

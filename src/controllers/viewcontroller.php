@@ -35,7 +35,7 @@ class ViewController
 		try
 		{
 			$id = $request->getAttribute('id');
-			if (!is_numeric($id) || $id<=0)
+			if (!is_numeric($id) || $id <=0 )
 			{
 				throw new Exception("Param 'id' is not correct");
 			}
@@ -70,8 +70,8 @@ class ViewController
 		{
 			$params = $request->getQueryParams();
 			$page = $params['page'] ?? 1;
-			$maxPage = (int)($this->feedback->count()/20);
-			if (!is_numeric($page) || $page<=0 || $page>$maxPage+1)
+			$maxPage = (int)($this->feedback->count() / 20);
+			if (!is_numeric($page) || $page <= 0 || $page > $maxPage + 1)
 			{
 				throw new Exception("Param 'page' is not correct");
 			}
